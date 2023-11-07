@@ -1,0 +1,37 @@
+﻿@model IEnumerable<CheckoutSystem.ViewModels.CustomerTotalPaymentViewModel>
+@{
+    ViewData["Title"] = "AllCustomersTotalPayments";
+}
+
+<h1>All Customers Total Payments</h1>
+@if (Model != null && Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Lastname</th>
+                <th>Membership</th>
+                <th>Total Payment</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var customerPayment in Model)
+            {
+                <tr>
+                    <td>@customerPayment.Customer?.Id</td>
+                    <td>@customerPayment.Customer?.Name</td>
+                    <td>@customerPayment.Customer?.LastName</td>
+                    <td>@customerPayment.Customer?.CustomerType</td>
+                    <td>@customerPayment.TotalPayment SEK</td>
+                    <td>
+                        <form asp-action="Pay" asp-route-id="@customerPayment.Customer.Id" method="post">
+                            <input type="submit" value="Pay" class="btn btn-primary" />
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
